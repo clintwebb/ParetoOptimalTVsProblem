@@ -5,21 +5,26 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2BBB5B55-3A9F-472A-B57D-2B9CE356A2BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing", "src\Testing\Testing.csproj", "{99726BD9-DE93-47E0-BEC1-943438F55A54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Testing", "src\Testing\Testing.csproj", "{99726BD9-DE93-47E0-BEC1-943438F55A54}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParetoOptimalTVsProblem", "src\ParetoOptimalTVsProblem\ParetoOptimalTVsProblem.csproj", "{87439F6C-133E-4098-9827-83B83180E9A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParetoOptimalTVsProblem", "src\ParetoOptimalTVsProblem\ParetoOptimalTVsProblem.csproj", "{87439F6C-133E-4098-9827-83B83180E9A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParetoOptimalTVsModel", "src\ParetoOptimalTVsModel\ParetoOptimalTVsModel.csproj", "{A8FDFC6E-3F92-49F2-B19A-32A7B9039E4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParetoOptimalTVsModel", "src\ParetoOptimalTVsModel\ParetoOptimalTVsModel.csproj", "{A8FDFC6E-3F92-49F2-B19A-32A7B9039E4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParetoOptimalTVsServices", "src\ParetoOptimalTVsServices\ParetoOptimalTVsServices.csproj", "{7861D848-2015-4B76-847D-CEA2872A3DDE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParetoOptimalTVsServices", "src\ParetoOptimalTVsServices\ParetoOptimalTVsServices.csproj", "{7861D848-2015-4B76-847D-CEA2872A3DDE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{14D7722E-05C8-4108-9B54-4BA2E390EE45}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		LICENSE.md = LICENSE.md
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{99726BD9-DE93-47E0-BEC1-943438F55A54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -39,10 +44,16 @@ Global
 		{7861D848-2015-4B76-847D-CEA2872A3DDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7861D848-2015-4B76-847D-CEA2872A3DDE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{99726BD9-DE93-47E0-BEC1-943438F55A54} = {2BBB5B55-3A9F-472A-B57D-2B9CE356A2BD}
 		{87439F6C-133E-4098-9827-83B83180E9A1} = {2BBB5B55-3A9F-472A-B57D-2B9CE356A2BD}
 		{A8FDFC6E-3F92-49F2-B19A-32A7B9039E4A} = {2BBB5B55-3A9F-472A-B57D-2B9CE356A2BD}
 		{7861D848-2015-4B76-847D-CEA2872A3DDE} = {2BBB5B55-3A9F-472A-B57D-2B9CE356A2BD}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {26B51B1E-C490-42BB-A629-9B7E13B7BFBA}
 	EndGlobalSection
 EndGlobal

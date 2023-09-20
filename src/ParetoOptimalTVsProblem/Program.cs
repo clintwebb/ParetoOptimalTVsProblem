@@ -26,6 +26,12 @@ public class Program
         // 1. Generate a list of random TVs
         List<TV> tvs = TVGenerator.GenerateRandomTVs(10, 3);
 
+        Console.WriteLine("Original TVs:");
+        foreach (var tv in tvs)
+        {
+            Console.WriteLine(string.Join(", ", tv.Features));
+        }
+
         // 2. Find the Pareto-optimal set of TVs
         List<TV> paretoOptimalTVs = ParetoFinder.FindParetoOptimal(tvs);
 
