@@ -12,9 +12,81 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using System.Linq;
+using Xunit;
+using ParetoOptimalTVsModel;
+using ParetoOptimalTVsServices;
+
 namespace Testing.ParetoOptimalTVsServices;
 
 public class TVGeneratorUnitTests
 {
-    
+    [Fact]
+    public void GenerateRandomTVs_ReturnsEmptyList_WhenZeroTVsOrFeatures()
+    {
+        // Arrange
+        var generator = new TVGenerator();
+
+        // Act
+        var resultZeroTVs = generator.GenerateRandomTVs(0, 3);
+        var resultZeroFeatures = generator.GenerateRandomTVs(3, 0);
+
+        // Assert
+        Assert.Empty(resultZeroTVs);
+        Assert.Empty(resultZeroFeatures);
+    }
+
+    [Fact]
+    public void GenerateRandomTVs_ReturnsCorrectNumberOfTVs()
+    {
+        // Arrange
+        var generator = new TVGenerator();
+
+        // Act
+        var result = generator.GenerateRandomTVs(5, 3);
+
+        // Assert
+        Assert.Equal(5, result.Count);
+    }
+
+    [Fact]
+    public void GenerateRandomTVs_ReturnsTVsWithCorrectNumberOfFeatures()
+    {
+        // Arrange
+        var generator = new TVGenerator();
+
+        // Act
+        var result = generator.GenerateRandomTVs(5, 3);
+
+        // Assert
+        Assert.All(result, tv => Assert.Equal(3, tv.Features.Count));
+    }
+
+    [Fact]
+    public void GenerateRandomTVs_ReturnsTVsWithFeatureValuesInRange()
+    {
+        // Arrange
+        var generator = new TVGenerator();
+
+        // Act
+        var result = generator.GenerateRandomTVs(5, 3);
+
+        // Assert
+        Assert.All(result, tv => Assert.All(tv.Features, feature => Assert.InRange(feature, 0, 10)));
+    }
+
+    [Fact]
+    public void GenerateRandomTVs_ShouldNotReturnNull()
+    {
+        // Arrange
+        var generator = new TVGenerator();
+
+        // Act
+        var result = generator.GenerateRandomTVs(5, 3);
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.All(result, tv => Assert.NotNull(tv));
+    }
+
 }

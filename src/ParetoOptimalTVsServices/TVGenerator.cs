@@ -23,21 +23,24 @@ public class TVGenerator
 {
 
     // Generates N random TVs, each with k features
-    public List<TV> GenerateRandomTVs(int N, int k)
+    public List<TV> GenerateRandomTVs(int numberOfTVs, int numberOfFeatures)
     {
         List<TV> tvs = new List<TV>();
-        Random rng = new Random();
-
-        for (int i = 0; i < N; i++)
+        if (numberOfTVs > 0 && numberOfFeatures > 0)
         {
-            List<int> features = new List<int>();
+            Random rng = new Random();
 
-            for (int j = 0; j < k; j++)
+            for (int i = 0; i < numberOfTVs; i++)
             {
-                features.Add(rng.Next(0, 11));  // Random integer between 0 and 10
-            }
+                List<int> features = new List<int>();
 
-            tvs.Add(new TV(features));
+                for (int j = 0; j < numberOfFeatures; j++)
+                {
+                    features.Add(rng.Next(0, 11)); // Random integer between 0 and 10
+                }
+
+                tvs.Add(new TV(features));
+            }
         }
 
         return tvs;
