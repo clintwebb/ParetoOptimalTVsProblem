@@ -17,25 +17,29 @@ using System.Collections.Generic;
 using ParetoOptimalTVsModel;
 
 namespace ParetoOptimalTVsServices;
-
+/// <summary>
+/// Provides methods to check if one TV dominates another based on their features.
+/// </summary>
+/// <remarks>
+/// Dominance is defined as one TV having features that are as good as or better than another TV across all features.
+/// </remarks>
 public class DominanceChecker
 {
-
-    // Checks if tv1 dominates tv2
+    /// <summary>
+    /// Checks if <paramref name="tv1"/> dominates <paramref name="tv2"/> based on their features.
+    /// </summary>
+    /// <param name="tv1">The first TV to compare.</param>
+    /// <param name="tv2">The second TV to compare.</param>
+    /// <returns>
+    /// Returns <c>true</c> if <paramref name="tv1"/> dominates <paramref name="tv2"/>; otherwise, <c>false</c>.
+    /// </returns>
+    /// <remarks>
+    /// This method assumes that both TVs have the same number of features.
+    /// Additional checks or normalization might be needed depending on your specific use-case.
+    /// </remarks>
     public bool DoesTVDominate(TV tv1, TV tv2)
     {
-        // Assumes that both TVs have the same number of features for simplicity.
-        // You might want to add additional checks or normalization here if needed.
-
-        for (var i = 0; i < tv1.Features.Count; i++)
-        {
-            if (tv1.Features[i] < tv2.Features[i])
-            {
-                return false;
-            }
-        }
-
-        return true;
+        return !tv1.Features.Where((t, i) => t < tv2.Features[i]).Any();
     }
 
 }
