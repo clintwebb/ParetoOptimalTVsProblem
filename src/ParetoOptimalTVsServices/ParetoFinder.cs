@@ -18,47 +18,42 @@ using ParetoOptimalTVsModel;
 
 namespace ParetoOptimalTVsServices;
 
+/// <summary>
+/// Finds the Pareto-optimal subset of a given list of TVs based on their features.
+/// </summary>
+/// <remarks>
+/// A TV is said to be 'Pareto-optimal' if it is not dominated by any other TV in the list.
+/// A TV 'dominates' another if it is as good or better across all features.
+/// </remarks>
 public class ParetoFinder
 {
-
+    /// <summary>
+    /// A helper service for checking feature dominance between two TVs.
+    /// </summary>
     private readonly DominanceChecker _dominanceChecker;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ParetoFinder"/> class.
+    /// </summary>
+    /// <param name="dominanceChecker">An instance of the <see cref="DominanceChecker"/> class.</param>
     public ParetoFinder(DominanceChecker dominanceChecker)
     {
-        _dominanceChecker = dominanceChecker;
+        _dominanceChecker = dominanceChecker ?? throw new ArgumentNullException(nameof(dominanceChecker));
     }
 
+    /// <summary>
+    /// Finds and returns the Pareto-optimal subset of a list of TVs.
+    /// </summary>
+    /// <param name="tvs">The list of TVs to evaluate.</param>
+    /// <returns>
+    /// A list of TVs that are Pareto-optimal, i.e., not dominated by any other TV in the original list.
+    /// Returns an empty list if the input list is empty or null.
+    /// </returns>
     public List<TV> FindParetoOptimal(List<TV> tvs)
     {
-        var paretoOptimalTVs = new List<TV>();
-
-        // Loop over each TV in the original list
-        foreach (var tv1 in tvs)
-        {
-            var isDominated = false;
-
-            // Compare against all other TVs to check for dominance
-            foreach (var tv2 in tvs)
-            {
-                // Skip comparing the TV to itself
-                if (tv1 == tv2) continue;
-
-                // Check if tv1 is dominated by tv2
-                if (_dominanceChecker.DoesTVDominate(tv2, tv1))
-                {
-                    isDominated = true;
-                    break;
-                }
-            }
-
-            // If tv1 is not dominated by any other TV, add it to the Pareto-optimal list
-            if (!isDominated)
-            {
-                paretoOptimalTVs.Add(tv1);
-            }
-        }
-
-        return paretoOptimalTVs;
+        return (from tv1 in tvs let isDominated = tvs
+            .Where(tv2 => tv1 != tv2)
+            .Any(tv2 => _dominanceChecker.DoesTVDominate(tv2, tv1)) where !isDominated select tv1)
+            .ToList();
     }
-
 }
