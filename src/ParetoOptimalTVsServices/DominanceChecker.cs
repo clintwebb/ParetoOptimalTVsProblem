@@ -22,7 +22,7 @@ public class DominanceChecker
 {
 
     // Checks if tv1 dominates tv2
-    public static bool DoesTVDominate(TV tv1, TV tv2)
+    public bool DoesTVDominate(TV tv1, TV tv2)
     {
         // Assumes that both TVs have the same number of features for simplicity.
         // You might want to add additional checks or normalization here if needed.

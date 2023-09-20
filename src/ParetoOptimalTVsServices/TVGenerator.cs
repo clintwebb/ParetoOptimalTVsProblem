@@ -23,7 +23,7 @@ public class TVGenerator
 {
 
     // Generates N random TVs, each with k features
-    public static List<TV> GenerateRandomTVs(int N, int k)
+    public List<TV> GenerateRandomTVs(int N, int k)
     {
         List<TV> tvs = new List<TV>();
         Random rng = new Random();

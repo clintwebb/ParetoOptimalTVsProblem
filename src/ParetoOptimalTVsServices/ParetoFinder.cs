@@ -20,7 +20,15 @@ namespace ParetoOptimalTVsServices;
 
 public class ParetoFinder
 {
-    public static List<TV> FindParetoOptimal(List<TV> tvs)
+
+    private readonly DominanceChecker _dominanceChecker;
+
+    public ParetoFinder(DominanceChecker dominanceChecker)
+    {
+        _dominanceChecker = dominanceChecker;
+    }
+
+    public List<TV> FindParetoOptimal(List<TV> tvs)
     {
         List<TV> paretoOptimalTVs = new List<TV>();
 
@@ -36,7 +44,7 @@ public class ParetoFinder
                 if (tv1 == tv2) continue;
 
                 // Check if tv1 is dominated by tv2
-                if (DominanceChecker.DoesTVDominate(tv2, tv1))
+                if (_dominanceChecker.DoesTVDominate(tv2, tv1))
                 {
                     isDominated = true;
                     break;

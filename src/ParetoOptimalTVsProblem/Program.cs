@@ -14,6 +14,7 @@
 
 using System;
 using System.Collections.Generic;
+using Autofac;
 using ParetoOptimalTVsModel;
 using ParetoOptimalTVsServices;
 
@@ -23,24 +24,37 @@ public class Program
 {
     static void Main(string[] args)
     {
-        // 1. Generate a list of random TVs
-        List<TV> tvs = TVGenerator.GenerateRandomTVs(10, 3);
 
-        Console.WriteLine("Original TVs:");
-        foreach (var tv in tvs)
+        var builder = new ContainerBuilder();
+        builder.RegisterType<DominanceChecker>().AsSelf();
+        builder.RegisterType<TVGenerator>().AsSelf();
+        builder.RegisterType<ParetoFinder>().AsSelf()
+            .WithParameter(new TypedParameter(typeof(DominanceChecker), new DominanceChecker()));
+        var container = builder.Build();
+
+        using (var scope = container.BeginLifetimeScope())
         {
-            Console.WriteLine(string.Join(", ", tv.Features));
+            var dominanceChecker = scope.Resolve<DominanceChecker>();
+            var tvGenerator = scope.Resolve<TVGenerator>();
+            var paretoFinder = scope.Resolve<ParetoFinder>();
+
+            List<TV> tvs = tvGenerator.GenerateRandomTVs(10, 3);
+
+            Console.WriteLine("Original list of TVs:");
+            foreach (var tv in tvs)
+            {
+                Console.WriteLine(string.Join(", ", tv.Features));
+            }
+
+            List<TV> paretoOptimalTVs = paretoFinder.FindParetoOptimal(tvs);
+
+            Console.WriteLine("Pareto-optimal TVs:");
+            foreach (var tv in paretoOptimalTVs)
+            {
+                Console.WriteLine(string.Join(", ", tv.Features));
+            }
         }
 
-        // 2. Find the Pareto-optimal set of TVs
-        List<TV> paretoOptimalTVs = ParetoFinder.FindParetoOptimal(tvs);
-
-        // 3. Output the Pareto-optimal TVs
-        Console.WriteLine("Pareto-optimal TVs:");
-        foreach (var tv in paretoOptimalTVs)
-        {
-            Console.WriteLine(string.Join(", ", tv.Features));
-        }
     }
 
 }
