@@ -12,9 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using System.Collections.Generic;
+
 namespace ParetoOptimalTVsModel;
 
 public class TV
 {
-    
+
+    public List<int> Features { get; set; }
+
+    public TV(List<int> features)
+    {
+        Features = features ?? new List<int>();
+    }
+
+    // Optionally, you can add additional properties, methods or helper functions
+    // e.g., ToString override for easier debugging or display.
+    public override string ToString()
+    {
+        return string.Join(", ", Features);
+    }
+
 }

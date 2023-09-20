@@ -12,9 +12,29 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using System;
+using System.Collections.Generic;
+using ParetoOptimalTVsModel;
+using ParetoOptimalTVsServices;
+
 namespace ParetoOptimalTVsProblem;
 
 public class Program
 {
-    
+    static void Main(string[] args)
+    {
+        // 1. Generate a list of random TVs
+        List<TV> tvs = TVGenerator.GenerateRandomTVs(10, 3);
+
+        // 2. Find the Pareto-optimal set of TVs
+        List<TV> paretoOptimalTVs = ParetoFinder.FindParetoOptimal(tvs);
+
+        // 3. Output the Pareto-optimal TVs
+        Console.WriteLine("Pareto-optimal TVs:");
+        foreach (var tv in paretoOptimalTVs)
+        {
+            Console.WriteLine(string.Join(", ", tv.Features));
+        }
+    }
+
 }

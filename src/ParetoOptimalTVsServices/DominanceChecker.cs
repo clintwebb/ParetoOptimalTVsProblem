@@ -12,9 +12,30 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using System.Collections.Generic;
+
+using ParetoOptimalTVsModel;
+
 namespace ParetoOptimalTVsServices;
 
 public class DominanceChecker
 {
-    
+
+    // Checks if tv1 dominates tv2
+    public static bool DoesTVDominate(TV tv1, TV tv2)
+    {
+        // Assumes that both TVs have the same number of features for simplicity.
+        // You might want to add additional checks or normalization here if needed.
+
+        for (int i = 0; i < tv1.Features.Count; i++)
+        {
+            if (tv1.Features[i] < tv2.Features[i])
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 }
