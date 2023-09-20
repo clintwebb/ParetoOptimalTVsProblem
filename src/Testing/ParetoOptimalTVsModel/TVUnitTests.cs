@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace ParetoOptimalTVsProblem;
+namespace Testing.ParetoOptimalTVsModel;
 
-public class Program
+public class TVUnitTests
 {
     
 }
