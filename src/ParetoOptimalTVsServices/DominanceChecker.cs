@@ -27,7 +27,7 @@ public class DominanceChecker
         // Assumes that both TVs have the same number of features for simplicity.
         // You might want to add additional checks or normalization here if needed.
 
-        for (int i = 0; i < tv1.Features.Count; i++)
+        for (var i = 0; i < tv1.Features.Count; i++)
         {
             if (tv1.Features[i] < tv2.Features[i])
             {

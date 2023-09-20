@@ -22,25 +22,40 @@ namespace ParetoOptimalTVsServices;
 public class TVGenerator
 {
 
-    // Generates N random TVs, each with k features
+    /// <summary>
+    /// Generates a list of TVs, each with a specified number of random features.
+    /// </summary>
+    /// <param name="numberOfTVs">The number of TVs to generate. Must be a non-negative integer.</param>
+    /// <param name="numberOfFeatures">The number of features each TV should have. Must be a non-negative integer.</param>
+    /// <returns>
+    /// A list of <see cref="TV"/> instances with random features. 
+    /// Each feature is an integer between 0 and 10 (inclusive).
+    /// Returns an empty list if <paramref name="numberOfTVs"/> or <paramref name="numberOfFeatures"/> is zero.
+    /// </returns>
     public List<TV> GenerateRandomTVs(int numberOfTVs, int numberOfFeatures)
     {
-        List<TV> tvs = new List<TV>();
-        if (numberOfTVs > 0 && numberOfFeatures > 0)
+        var tvs = new List<TV>();
+
+        // Validate that numberOfTVs and numberOfFeatures are greater than zero
+        if (numberOfTVs <= 0 || numberOfFeatures <= 0)
         {
-            Random rng = new Random();
+            return tvs;
+        }
 
-            for (int i = 0; i < numberOfTVs; i++)
+        var rng = new Random();
+
+        for (var i = 0; i < numberOfTVs; i++)
+        {
+            var features = new List<int>();
+
+            for (var j = 0; j < numberOfFeatures; j++)
             {
-                List<int> features = new List<int>();
-
-                for (int j = 0; j < numberOfFeatures; j++)
-                {
-                    features.Add(rng.Next(0, 11)); // Random integer between 0 and 10
-                }
-
-                tvs.Add(new TV(features));
+                // Generate a random integer between 0 and 10 (inclusive) for each feature
+                features.Add(rng.Next(0, 11));
             }
+
+            // Create a new TV with the generated features and add it to the list
+            tvs.Add(new TV(features));
         }
 
         return tvs;

@@ -30,7 +30,7 @@ public class DominanceCheckerUnitTests
         var checker = new DominanceChecker();
 
         // Act
-        bool result = checker.DoesTVDominate(tv1, tv2);
+        var result = checker.DoesTVDominate(tv1, tv2);
 
         // Assert
         Assert.True(result);
@@ -45,7 +45,7 @@ public class DominanceCheckerUnitTests
         var checker = new DominanceChecker();
 
         // Act
-        bool result = checker.DoesTVDominate(tv1, tv2);
+        var result = checker.DoesTVDominate(tv1, tv2);
 
         // Assert
         Assert.False(result);
@@ -60,7 +60,7 @@ public class DominanceCheckerUnitTests
         var checker = new DominanceChecker();
 
         // Act
-        bool result = checker.DoesTVDominate(tv1, tv2);
+        var result = checker.DoesTVDominate(tv1, tv2);
 
         // Assert
         Assert.True(result);

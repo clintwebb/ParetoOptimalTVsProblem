@@ -38,7 +38,7 @@ public class Program
             var tvGenerator = scope.Resolve<TVGenerator>();
             var paretoFinder = scope.Resolve<ParetoFinder>();
 
-            List<TV> tvs = tvGenerator.GenerateRandomTVs(10, 3);
+            var tvs = tvGenerator.GenerateRandomTVs(10, 3);
 
             Console.WriteLine("Original list of TVs:");
             foreach (var tv in tvs)
@@ -46,7 +46,7 @@ public class Program
                 Console.WriteLine(string.Join(", ", tv.Features));
             }
 
-            List<TV> paretoOptimalTVs = paretoFinder.FindParetoOptimal(tvs);
+            var paretoOptimalTVs = paretoFinder.FindParetoOptimal(tvs);
 
             Console.WriteLine("Pareto-optimal TVs:");
             foreach (var tv in paretoOptimalTVs)

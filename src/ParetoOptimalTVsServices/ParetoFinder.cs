@@ -30,15 +30,15 @@ public class ParetoFinder
 
     public List<TV> FindParetoOptimal(List<TV> tvs)
     {
-        List<TV> paretoOptimalTVs = new List<TV>();
+        var paretoOptimalTVs = new List<TV>();
 
         // Loop over each TV in the original list
-        foreach (TV tv1 in tvs)
+        foreach (var tv1 in tvs)
         {
-            bool isDominated = false;
+            var isDominated = false;
 
             // Compare against all other TVs to check for dominance
-            foreach (TV tv2 in tvs)
+            foreach (var tv2 in tvs)
             {
                 // Skip comparing the TV to itself
                 if (tv1 == tv2) continue;
