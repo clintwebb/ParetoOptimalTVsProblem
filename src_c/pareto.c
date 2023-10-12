@@ -4,11 +4,15 @@
 #include <time.h>
 #include <getopt.h>
 
+// To check known output, un-comment this.
+// #define CHECK_TEST  1
+
 
 #define DEF_TV          10
 #define DEF_FEATURES    3
 
 typedef struct __tv {
+    int id;
     int *features;
     int feat_len;
     struct __tv * dominated;
@@ -25,6 +29,7 @@ _tv * generate_tv_list(int tv_limit, int feature_limit)
     assert(list);
 
     for (int i=0; i<tv_limit; i++) {
+        list[i].id = i;
         list[i].features = calloc(feature_limit, sizeof(int));
         assert(list[i].features);
         list[i].feat_len = feature_limit;
@@ -56,10 +61,24 @@ int tv_compare(_tv *aa, _tv *bb)
 
     assert(aa != bb);
 
+#ifdef DEBUG
+    printf("Comparing \n  #%d (", aa->id);
+    for (int i=0; i<aa->feat_len; i++) {
+        if (i>0) { printf(","); }
+        printf("%d", aa->features[i]);
+    }
+    printf("), #%d (", bb->id);
+    for (int i=0; i<bb->feat_len; i++) {
+        if (i>0) { printf(","); }
+        printf("%d", bb->features[i]);
+    }
+    printf(")\n");
+#endif
+
     int dominated = 0;
 
     for (int i=0; i<aa->feat_len; i++) {
-        if (aa->features[i] <= bb->features[i]) {
+        if (aa->features[i] < bb->features[i]) {
             dominated = -1;
             i = aa->feat_len;   // break out of the loop
         }
@@ -69,9 +88,15 @@ int tv_compare(_tv *aa, _tv *bb)
         // if we managed to get through the whole loop, then aa dominated bb, so we need to put a mark in the bb object to indicate it was dominated.
         // NOTE: if an object is dominated more than once, we only noting the last one
         bb->dominated = aa;
+#ifdef DEBUG
+        printf("AA dominated BB\n");
+#endif
         return(1);
     }
     else {
+#ifdef DEBUG
+        printf("AA did NOT dominate BB\n");
+#endif
         return(0);
     }
 }
@@ -107,6 +132,40 @@ void main(int argc, char **argv)
 
     // generate the list of TV's with random feature values within
     _tv *list = generate_tv_list(g_tv, g_features);
+
+
+#ifdef CHECK_TEST
+    // to compare against known data... we can insert that known data into the data...
+    printf("KNOWN DATA\n\n");
+
+    assert(g_tv == 10);
+    assert(g_features == 3);
+
+    int data[] = {
+        1, 2, 7,
+        0, 3, 8,
+        6, 6, 2,
+        7, 4, 8,
+        0, 3, 9,
+        2, 5, 8,
+        5, 4, 3,
+        4, 2, 9,
+        7, 10, 4,
+        7, 3, 0 };
+
+
+    ///////////////////////////
+    // IGNORE THE GENERATED LIST.... Add known data.
+    int xx = 0;
+    for (int i=0; i<g_tv; i++) {
+        assert(list[i].features);
+        for (int j=0; j<g_features; j++) {
+            list[i].features[j] = data[xx];
+            xx++;
+        }
+    }
+
+#endif
 
     // print the list info.
     printf("Original List of TVs:\n");
